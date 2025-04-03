@@ -40,9 +40,9 @@ credit ="𝙎𝘼𝙄𝙉𝙄 𝘽𝙊𝙏𝙎"
 # Initialize the bot
 bot = Client(
     "bot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN
+    api_id=API_ID,23664819
+    api_hash=API_HASH,3853f97c662d5d08cee5f0d07361361e 
+    bot_token=BOT_TOKEN,7752269541:AAGKfLl45e85qI9j8iitaL57Mklh6DkbM-k
 )
 
 # Define aiohttp routes
