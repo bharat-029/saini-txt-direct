@@ -1,6 +1,6 @@
-![Typing SVG](https://readme-typing-svg.herokuapp.com/?lines=Welcome+To+Txt+Uploader+Bot+!)
+bot Credit by @Bharat00029 (@Courselelohelp_bot)
 
-Welcome to NON-DRM bot made by @nikhil.saini.khe (TELEGRAM & Instagram)
+Welcome to NON-DRM bot made by @Courselelohelp_bot
 
 #command
 ```
