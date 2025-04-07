@@ -38,3 +38,4 @@ pyopenssl
 wget
 bs4
 beautifulsoup4
+m3u8
