@@ -4,7 +4,7 @@ Welcome to NON-DRM bot made by @Courselelohelp_bot
 
 #command
 ```
-/start start the bot
+/bharat start the bot
 /stop stop the bot
 /help to get help in using this bot
 ```
