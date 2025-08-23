@@ -202,7 +202,7 @@ async def run(cmd):
 
     
 
-def old_download(url, file_name, chunk_size = 1024 * 10 * 10):
+def old_download(url, file_name, chunk_size = 1024 * 10):
     if os.path.exists(file_name):
         os.remove(file_name)
     r = requests.get(url, allow_redirects=True, stream=True)
@@ -292,7 +292,7 @@ async def download_and_decrypt_video(url, cmd, name, key):
             print(f"Failed to decrypt {video_path}.")  
             return None  
 
-async def send_vid(bot: Client, m: Message, cc, filename, thumb, name, prog, channel_id):
+async def send_vid(bot: Client, m: Message, cc, filename, vidwatermark, thumb, name, prog, channel_id):
     subprocess.run(f'ffmpeg -i "{filename}" -ss 00:00:10 -vframes 1 "{filename}.jpg"', shell=True)
     await prog.delete (True)
     reply1 = await bot.send_message(channel_id, f"**📩 Uploading Video 📩:-**\n<blockquote>**{name}**</blockquote>")
@@ -301,19 +301,29 @@ async def send_vid(bot: Client, m: Message, cc, filename, thumb, name, prog, cha
         if thumb == "/d":
             thumbnail = f"{filename}.jpg"
         else:
-            thumbnail = thumb
+            thumbnail = thumb  
+        
+        if vidwatermark == "/d":
+            w_filename = f"{filename}"
+        else:
+            w_filename = f"w_{filename}"
+            font_path = "vidwater.ttf"
+            subprocess.run(
+                f'ffmpeg -i "{filename}" -vf "drawtext=fontfile={font_path}:text=\'{vidwatermark}\':fontcolor=white@0.3:fontsize=h/6:x=(w-text_w)/2:y=(h-text_h)/2" -codec:a copy "{w_filename}"',
+                shell=True
+            )
             
     except Exception as e:
         await m.reply_text(str(e))
-      
-    dur = int(duration(filename))
+
+    dur = int(duration(w_filename))
     start_time = time.time()
 
     try:
-        await bot.send_video(channel_id, filename, caption=cc, supports_streaming=True, height=720, width=1280, thumb=thumbnail, duration=dur, progress=progress_bar, progress_args=(reply, start_time))
+        await bot.send_video(channel_id, w_filename, caption=cc, supports_streaming=True, height=720, width=1280, thumb=thumbnail, duration=dur, progress=progress_bar, progress_args=(reply, start_time))
     except Exception:
-        await bot.send_document(channel_id, filename, caption=cc, progress=progress_bar, progress_args=(reply, start_time))
-    os.remove(filename)
+        await bot.send_document(channel_id, w_filename, caption=cc, progress=progress_bar, progress_args=(reply, start_time))
+    os.remove(w_filename)
     await reply.delete(True)
     await reply1.delete(True)
     os.remove(f"{filename}.jpg")
